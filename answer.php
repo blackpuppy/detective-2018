@@ -254,6 +254,50 @@ function check_condition7($answers)
 // check_condition7(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'D']); // true
 // exit(0);
 
+/**
+ * 检查第8题的限制条件：第8题的答案为
+ * A时，第1题的答案与第7题的答案在字母中不相邻，或者
+ * B时，第1题的答案与第5题的答案在字母中不相邻，或者
+ * C时，第1题的答案与第2题的答案在字母中不相邻，或者
+ * D时，第1题的答案与第10题的答案在字母中不相邻。
+ * @param  array $answers 所有问题的可能答案
+ * @return bool           如果符合第7题的限制条件，返回true；否则返回false。
+ */
+function check_condition8($answers)
+{
+    $map = [];
+    $map['A'] = 6;
+    $map['B'] = 4;
+    $map['C'] = 1;
+    $map['D'] = 9;
+
+    $other_question_index = $map[$answers[7]];
+    $other_question_answer = $answers[$other_question_index];
+
+    $ord8 = ord($answers[7]);
+    $ord_other = ord($other_question_answer);
+
+    $diff = abs($ord8 - $ord_other);
+
+    $result = $diff > 1;
+
+    // echo PHP_EOL . 'check_condition8($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $other_question_index = ' . $other_question_index
+    //     . PHP_EOL . '  $other_question_answer = ' . $other_question_answer
+    //     . PHP_EOL . '  $ord8 = ' . $ord8
+    //     . PHP_EOL . '  $ord_other = ' . $ord_other
+    //     . PHP_EOL . '  $diff = ' . $diff
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
+
+    return $result;
+}
+
+// check_condition8(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+// check_condition8(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
+// exit(0);
+
 /**-----------------------------------------------------------------------------
  * 全局代码
  */
