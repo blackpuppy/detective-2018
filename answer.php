@@ -16,22 +16,22 @@ $ php -f answer.php
  */
 function check_answers($answers)
 {
-    return check_condition2($answers)  // 问题2的限制条件
-        && check_condition3($answers)  // 问题3的限制条件
-        && check_condition4($answers)  // 问题4的限制条件
-        && check_condition5($answers)  // 问题5的限制条件
-        && check_condition6($answers); // 问题6的限制条件
+    return check_condition2($answers)  // 第2题的限制条件
+        && check_condition3($answers)  // 第3题的限制条件
+        && check_condition4($answers)  // 第4题的限制条件
+        && check_condition5($answers)  // 第5题的限制条件
+        && check_condition6($answers); // 第6题的限制条件
 }
 
 /**
- * 检查问题2的限制条件：
+ * 检查第2题的限制条件：
  * 第2题的答案为A时，第5题答案为C，或者
  * 第2题的答案为B时，第5题答案为D，或者
  * 第2题的答案为C时，第5题答案为A，或者
  * 第2题的答案为D时，第5题答案为B。
  * 。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合问题2的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第2题的限制条件，返回true；否则返回false。
  */
 function check_condition2($answers)
 {
@@ -54,13 +54,13 @@ function check_condition2($answers)
 // exit(0);
 
 /**
- * 检查问题3的限制条件：第3、6、2、4题的答案，有1个与其它3个不同，且
+ * 检查第3题的限制条件：第3、6、2、4题的答案，有1个与其它3个不同，且
  * 第3题的答案为A时，不同的答案为第3题，或者
  * 第3题的答案为B时，不同的答案为第6题，或者
  * 第3题的答案为C时，不同的答案为第2题，或者
  * 第3题的答案为D时，不同的答案为第4题。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合问题3的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第3题的限制条件，返回true；否则返回false。
  */
 function check_condition3($answers)
 {
@@ -130,13 +130,13 @@ function check_condition3($answers)
 // exit(0);
 
 /**
- * 检查问题4的限制条件：第4题的答案为
+ * 检查第4题的限制条件：第4题的答案为
  * A时，第1、5题答案相同，或者
  * B时，第2、7题答案相同，或者
  * C时，第1、9题答案相同，或者
  * D时，第6、10题答案相同。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合问题4的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第4题的限制条件，返回true；否则返回false。
  */
 function check_condition4($answers)
 {
@@ -158,13 +158,13 @@ function check_condition4($answers)
 // exit(0);
 
 /**
- * 检查问题5的限制条件：第5题的答案为
+ * 检查第5题的限制条件：第5题的答案为
  * A时，与第8题答案相同，或者
  * B时，与第4题答案相同，或者
  * C时，与第9题答案相同，或者
  * D时，与第7题答案相同。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合问题5的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第5题的限制条件，返回true；否则返回false。
  */
 function check_condition5($answers)
 {
@@ -186,14 +186,13 @@ function check_condition5($answers)
 // exit(0);
 
 /**
- * 检查问题6的限制条件：第6题的答案为
+ * 检查第6题的限制条件：第6题的答案为
  * A时，第8题的答案与第2、4题答案相同，或者
  * B时，第8题的答案与第1、6题答案相同，或者
  * C时，第8题的答案与第3、10题答案相同，或者
  * D时，第8题的答案与第5、9题答案相同，
- * 并且只有一项成立。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合问题5的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第6题的限制条件，返回true；否则返回false。
  */
 function check_condition6($answers)
 {
@@ -213,6 +212,46 @@ function check_condition6($answers)
 
 // check_condition6(['A', 'C', 'A', 'A', 'B', 'B', 'A', 'D', 'C', 'D']); // false
 // check_condition6(['A', 'C', 'D', 'A', 'B', 'C', 'B', 'D', 'A', 'D']); // true
+// exit(0);
+
+/**
+ * 检查第7题的限制条件：第7题的答案为
+ * A时，在此10题的答案中，被选中次数最少的选项字母为A，或者
+ * B时，在此10题的答案中，被选中次数最少的选项字母为B，或者
+ * C时，在此10题的答案中，被选中次数最少的选项字母为C，或者
+ * D时，在此10题的答案中，被选中次数最少的选项字母为D。
+ * @param  array $answers 所有问题的可能答案
+ * @return bool           如果符合第7题的限制条件，返回true；否则返回false。
+ */
+function check_condition7($answers)
+{
+    $answer_count = [];
+    foreach ($answers as $a) {
+        if (!array_key_exists($a, $answer_count)) {
+            $answer_count[$a] = 1;
+        } else {
+            $answer_count[$a] = $answer_count[$a] + 1;
+        }
+    }
+
+    $min_count = min($answer_count);
+
+    $result =
+        $answers[6] === 'A' && $answer_count['A'] === $min_count ||
+        $answers[6] === 'B' && $answer_count['B'] === $min_count ||
+        $answers[6] === 'C' && $answer_count['C'] === $min_count ||
+        $answers[6] === 'D' && $answer_count['D'] === $min_count;
+
+    // echo PHP_EOL . 'check_condition7($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
+
+    return $result;
+}
+
+// check_condition7(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'D']); // false
+// check_condition7(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'D']); // true
 // exit(0);
 
 /**-----------------------------------------------------------------------------
