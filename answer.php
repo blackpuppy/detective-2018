@@ -186,48 +186,33 @@ function check_condition5($answers)
 // exit(0);
 
 /**
- * 检查问题6的限制条件：第8题的答案
- * 与第2、4题答案相同，或者
- * 与第1、6题答案相同，或者
- * 与第3、10题答案相同，或者
- * 与第5、9题答案相同，
+ * 检查问题6的限制条件：第6题的答案为
+ * A时，第8题的答案与第2、4题答案相同，或者
+ * B时，第8题的答案与第1、6题答案相同，或者
+ * C时，第8题的答案与第3、10题答案相同，或者
+ * D时，第8题的答案与第5、9题答案相同，
  * 并且只有一项成立。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合问题5的限制条件，返回true；否则返回false。
  */
 function check_condition6($answers)
 {
-    $values = [
-        $answers[7] === $answers[1] && $answers[7] === $answers[3] ? 'true' : 'false',
-        $answers[7] === $answers[0] && $answers[7] === $answers[5] ? 'true' : 'false',
-        $answers[7] === $answers[2] && $answers[7] === $answers[9] ? 'true' : 'false',
-        $answers[7] === $answers[4] && $answers[7] === $answers[8] ? 'true' : 'false',
-    ];
-
-    $value_count = [];
-    foreach ($values as $v) {
-        if (!array_key_exists($v, $value_count)) {
-            $value_count[$v] = 1;
-        } else {
-            $value_count[$v] = $value_count[$v] + 1;
-        }
-    }
-
-    $result = $value_count['false'] === 3
-        && $value_count['true'] === 1;
+    $result =
+        $answers[5] === 'A' && $answers[7] === $answers[1] && $answers[7] === $answers[3] ||
+        $answers[5] === 'B' && $answers[7] === $answers[0] && $answers[7] === $answers[5] ||
+        $answers[5] === 'C' && $answers[7] === $answers[2] && $answers[7] === $answers[9] ||
+        $answers[5] === 'D' && $answers[7] === $answers[4] && $answers[7] === $answers[8];
 
     // echo PHP_EOL . 'check_condition6($answers):'
     //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
-    //     . PHP_EOL . '  $values = ' . print_r($values, true)
-    //     . PHP_EOL . '  $value_count = ' . print_r($value_count, true)
     //     . PHP_EOL . '  $result = ' . $result
     //     . PHP_EOL . str_repeat('-', 80);
 
     return $result;
 }
 
-// check_condition6(['A', 'C', 'A', 'A', 'B', 'C', 'A', 'D', 'C', 'D']); // false
-// check_condition6(['A', 'C', 'D', 'A', 'B', 'A', 'B', 'D', 'A', 'D']); // true
+// check_condition6(['A', 'C', 'A', 'A', 'B', 'B', 'A', 'D', 'C', 'D']); // false
+// check_condition6(['A', 'C', 'D', 'A', 'B', 'C', 'B', 'D', 'A', 'D']); // true
 // exit(0);
 
 /**-----------------------------------------------------------------------------
