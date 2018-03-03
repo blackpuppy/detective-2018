@@ -261,7 +261,7 @@ function check_condition7($answers)
  * C时，第1题的答案与第2题的答案在字母中不相邻，或者
  * D时，第1题的答案与第10题的答案在字母中不相邻。
  * @param  array $answers 所有问题的可能答案
- * @return bool           如果符合第7题的限制条件，返回true；否则返回false。
+ * @return bool           如果符合第8题的限制条件，返回true；否则返回false。
  */
 function check_condition8($answers)
 {
@@ -296,6 +296,45 @@ function check_condition8($answers)
 
 // check_condition8(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
 // check_condition8(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
+// exit(0);
+
+/**
+ * 检查第9题的限制条件：第9题的答案为
+ * A时，“第1题与第6题答案相同”与“第6题与第5题答案相同”的真假性相反，或者
+ * B时，“第1题与第6题答案相同”与“第10题与第5题答案相同”的真假性相反，或者
+ * C时，“第1题与第6题答案相同”与“第2题与第5题答案相同”的真假性相反，或者
+ * D时，“第1题与第6题答案相同”与“第9题与第5题答案相同”的真假性相反。
+ * @param  array $answers 所有问题的可能答案
+ * @return bool           如果符合第9题的限制条件，返回true；否则返回false。
+ */
+function check_condition9($answers)
+{
+    $map = [];
+    $map['A'] = 5;
+    $map['B'] = 9;
+    $map['C'] = 1;
+    $map['D'] = 8;
+
+    $question_index = $map[$answers[8]];
+
+    $bool1 = $answers[0] === $answers[5];
+    $bool2 = $answers[$question_index] === $answers[4];
+
+    $result = $bool1 !== $bool2;
+
+    // echo PHP_EOL . 'check_condition9($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $question_index = ' . $question_index
+    //     . PHP_EOL . '  $bool1 = ' . $bool1
+    //     . PHP_EOL . '  $bool2 = ' . $bool2
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
+
+    return $result;
+}
+
+// check_condition9(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+// check_condition9(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
 // exit(0);
 
 /**-----------------------------------------------------------------------------
