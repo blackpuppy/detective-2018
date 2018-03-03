@@ -16,11 +16,15 @@ $ php -f answer.php
  */
 function check_answers($answers)
 {
-    return check_condition2($answers)  // 第2题的限制条件
-        && check_condition3($answers)  // 第3题的限制条件
-        && check_condition4($answers)  // 第4题的限制条件
-        && check_condition5($answers)  // 第5题的限制条件
-        && check_condition6($answers); // 第6题的限制条件
+    return check_condition2($answers)   // 第2题的限制条件
+        && check_condition3($answers)   // 第3题的限制条件
+        && check_condition4($answers)   // 第4题的限制条件
+        && check_condition5($answers)   // 第5题的限制条件
+        && check_condition6($answers)   // 第6题的限制条件
+        && check_condition7($answers)   // 第7题的限制条件
+        && check_condition8($answers)   // 第8题的限制条件
+        && check_condition9($answers)   // 第9题的限制条件
+        && check_condition10($answers); // 第10题的限制条件
 }
 
 /**
@@ -337,6 +341,57 @@ function check_condition9($answers)
 // check_condition9(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
 // exit(0);
 
+/**
+ * 检查第10题的限制条件：第10题的答案为
+ * A时，此10道题中4个字母出现次数最多与最少的差为3，或者
+ * B时，此10道题中4个字母出现次数最多与最少的差为2，或者
+ * C时，此10道题中4个字母出现次数最多与最少的差为4，或者
+ * D时，此10道题中4个字母出现次数最多与最少的差为1。
+ * @param  array $answers 所有问题的可能答案
+ * @return bool           如果符合第10题的限制条件，返回true；否则返回false。
+ */
+function check_condition10($answers)
+{
+    $answer_count = [];
+    foreach ($answers as $a) {
+        if (!array_key_exists($a, $answer_count)) {
+            $answer_count[$a] = 1;
+        } else {
+            $answer_count[$a] = $answer_count[$a] + 1;
+        }
+    }
+
+    $min_count = min($answer_count);
+    $max_count = max($answer_count);
+    if ($min_count === $max_count) {
+        $min_count = 0;
+    }
+
+    $map = [];
+    $map['A'] = 3;
+    $map['B'] = 2;
+    $map['C'] = 4;
+    $map['D'] = 1;
+
+    $expected = $map[$answers[9]];
+
+    $result = $max_count - $min_count === $expected;
+
+    // echo PHP_EOL . 'check_condition10($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $min_count = ' . $min_count
+    //     . PHP_EOL . '  $max_count = ' . $max_count
+    //     . PHP_EOL . '  $expected = ' . $expected
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
+
+    return $result;
+}
+
+// check_condition10(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+// check_condition10(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
+// exit(0);
+
 /**-----------------------------------------------------------------------------
  * 全局代码
  */
@@ -384,5 +439,5 @@ $answers[9] = $available_answers[$i9];
     // break 9;
 }}}}}}}}}}
 
-echo '有' . count($all_answers) . '种答案';
-// echo '$all_answers = ' . print_r($all_answers, true);
+echo '有' . count($all_answers) . '种答案'
+    . PHP_EOL . '$all_answers = ' . print_r($all_answers, true);
