@@ -41,10 +41,10 @@ function check_condition2($answers)
         $answers[1] === 'C' && $answers[4] === 'A' ||
         $answers[1] === 'D' && $answers[4] === 'B';
 
-    echo PHP_EOL . 'check_condition2($answers):'
-        . PHP_EOL . '  $answers = ' . print_r($answers, true)
-        . PHP_EOL . '  $result = ' . $result
-        . PHP_EOL . str_repeat('-', 80);
+    // echo PHP_EOL . 'check_condition2($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
 
     return $result;
 }
@@ -54,7 +54,11 @@ function check_condition2($answers)
 // exit(0);
 
 /**
- * 检查问题3的限制条件：第3、6、2、4题的答案，有1个与其它3个不同。
+ * 检查问题3的限制条件：第3、6、2、4题的答案，有1个与其它3个不同，且
+ * 第3题的答案为A时，不同的答案为第3题，或者
+ * 第3题的答案为B时，不同的答案为第6题，或者
+ * 第3题的答案为C时，不同的答案为第2题，或者
+ * 第3题的答案为D时，不同的答案为第4题。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合问题3的限制条件，返回true；否则返回false。
  */
@@ -91,11 +95,38 @@ function check_condition3($answers)
     //     . PHP_EOL . '  $result = ' . $result
     //     . PHP_EOL . str_repeat('-', 80);
 
+    $result = $result && (
+        $answers[2] === 'A' &&
+            $answers[2] !== $answers[5] &&
+            $answers[2] !== $answers[1] &&
+            $answers[2] !== $answers[3]
+        ||
+        $answers[2] === 'B' &&
+            $answers[5] !== $answers[2] &&
+            $answers[5] !== $answers[1] &&
+            $answers[5] !== $answers[3]
+        ||
+        $answers[2] === 'C' &&
+            $answers[1] !== $answers[2] &&
+            $answers[1] !== $answers[5] &&
+            $answers[1] !== $answers[3]
+        ||
+        $answers[2] === 'D' &&
+            $answers[3] !== $answers[2] &&
+            $answers[3] !== $answers[5] &&
+            $answers[3] !== $answers[1]
+    );
+
+    // echo PHP_EOL . 'check_condition3($answers):'
+    //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $result = ' . $result
+    //     . PHP_EOL . str_repeat('-', 80);
+
     return $result;
 }
 
 // check_condition3(['A', 'C', 'A', 'A', 'B', 'D', 'B', 'D', 'A', 'D']); // false
-// check_condition3(['A', 'C', 'A', 'A', 'B', 'A', 'B', 'D', 'A', 'D']); // true
+// check_condition3(['A', 'A', 'C', 'C', 'B', 'C', 'B', 'D', 'A', 'D']); // true
 // exit(0);
 
 /**
