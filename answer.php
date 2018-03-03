@@ -130,20 +130,20 @@ function check_condition3($answers)
 // exit(0);
 
 /**
- * 检查问题4的限制条件：
- * 第1、5题答案相同，或者
- * 第2、7题答案相同，或者
- * 第1、9题答案相同，或者
- * 第6、10题答案相同。
+ * 检查问题4的限制条件：第4题的答案为
+ * A时，第1、5题答案相同，或者
+ * B时，第2、7题答案相同，或者
+ * C时，第1、9题答案相同，或者
+ * D时，第6、10题答案相同。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合问题4的限制条件，返回true；否则返回false。
  */
 function check_condition4($answers)
 {
-    $result = $answers[0] === $answers[4]
-        || $answers[1] === $answers[6]
-        || $answers[0] === $answers[8]
-        || $answers[5] === $answers[9];
+    $result = $answers[3] === 'A' && $answers[0] === $answers[4]
+        || $answers[3] === 'B' && $answers[1] === $answers[6]
+        || $answers[3] === 'C' && $answers[0] === $answers[8]
+        || $answers[3] === 'D' && $answers[5] === $answers[9];
 
     // echo PHP_EOL . 'check_condition4($answers):'
     //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
@@ -154,7 +154,7 @@ function check_condition4($answers)
 }
 
 // check_condition4(['A', 'C', 'A', 'A', 'B', 'C', 'B', 'D', 'D', 'D']); // false
-// check_condition4(['A', 'C', 'A', 'A', 'B', 'A', 'B', 'D', 'A', 'D']); // true
+// check_condition4(['A', 'C', 'A', 'C', 'B', 'A', 'B', 'D', 'A', 'D']); // true
 // exit(0);
 
 /**
