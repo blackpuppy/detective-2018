@@ -4,6 +4,7 @@ $ node answer.js
 
 所有答案可能性:     1,048,576
 经过第2题的限制条件:   262,144
+经过第3题的限制条件:    12,288
  */
 
 findAnswers();
@@ -14,6 +15,9 @@ function findAnswers() {
      */
     // checkCondition2(['A', 'C', 'A', 'A', 'B', 'C', 'A', 'D', 'C', 'D']); // false
     // checkCondition2(['A', 'C', 'D', 'A', 'A', 'A', 'B', 'D', 'A', 'D']); // true
+
+    // checkCondition3(['A', 'C', 'A', 'A', 'B', 'D', 'B', 'D', 'A', 'D']); // false
+    // checkCondition3(['A', 'A', 'C', 'C', 'B', 'C', 'B', 'D', 'A', 'D']); // true
 
     // return;
 
@@ -88,8 +92,8 @@ function findAnswers() {
  */
 function checkAnswers(answers)
 {
-    return checkCondition2(answers);  // 第2题的限制条件
-        && checkCondition3(answers)   // 第3题的限制条件
+    return checkCondition2(answers)   // 第2题的限制条件
+        && checkCondition3(answers);  // 第3题的限制条件
         // && checkCondition4(answers)   // 第4题的限制条件
         // && checkCondition5(answers)   // 第5题的限制条件
         // && checkCondition6(answers)   // 第6题的限制条件
@@ -110,18 +114,96 @@ function checkAnswers(answers)
  *
  * @returns {Boolean} 如果符合第2题的限制条件，返回true；否则返回false。
  */
-function checkCondition2($answers)
+function checkCondition2(answers)
 {
-    $result =
-        $answers[1] === 'A' && $answers[4] === 'C' ||
-        $answers[1] === 'B' && $answers[4] === 'D' ||
-        $answers[1] === 'C' && $answers[4] === 'A' ||
-        $answers[1] === 'D' && $answers[4] === 'B';
+    result =
+        answers[1] === 'A' && answers[4] === 'C' ||
+        answers[1] === 'B' && answers[4] === 'D' ||
+        answers[1] === 'C' && answers[4] === 'A' ||
+        answers[1] === 'D' && answers[4] === 'B';
 
-    // console.log('checkCondition2($answers):');
-    // console.log('  $answers = ', $answers);
-    // console.log('  $result = ', $result);
+    // console.log('checkCondition2(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
-    return $result;
+    return result;
+}
+
+/**
+ * 检查第3题的限制条件：第3、6、2、4题的答案，有1个与其它3个不同，且
+ * 第3题的答案为A时，不同的答案为第3题，或者
+ * 第3题的答案为B时，不同的答案为第6题，或者
+ * 第3题的答案为C时，不同的答案为第2题，或者
+ * 第3题的答案为D时，不同的答案为第4题。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第3题的限制条件，返回true；否则返回false。
+ */
+function checkCondition3(answers)
+{
+    var answerCount = [],
+        answerInvolved = [
+            answers[2], // 第3题的答案
+            answers[5], // 第6题的答案
+            answers[1], // 第2题的答案
+            answers[3], // 第4题的答案
+        ];
+
+    answerInvolved.map(function (a) {
+        if (a in answerCount) {
+            answerCount[a] = answerCount[a] + 1;
+        } else {
+            answerCount[a] = 1;
+        }
+    });
+
+    var countValues = [];
+    for (var key in answerCount) {
+        if (answerCount.hasOwnProperty(key)) {
+            countValues.push(answerCount[key]);
+        }
+    }
+
+    var min = Math.min(...countValues),
+        max = Math.max(...countValues);
+
+    var result = countValues.length === 2 &&
+        min === 1 &&
+        max === 3 &&
+        (
+            answers[2] === 'A' &&
+                answers[2] !== answers[5] &&
+                answers[2] !== answers[1] &&
+                answers[2] !== answers[3]
+            ||
+            answers[2] === 'B' &&
+                answers[5] !== answers[2] &&
+                answers[5] !== answers[1] &&
+                answers[5] !== answers[3]
+            ||
+            answers[2] === 'C' &&
+                answers[1] !== answers[2] &&
+                answers[1] !== answers[5] &&
+                answers[1] !== answers[3]
+            ||
+            answers[2] === 'D' &&
+                answers[3] !== answers[2] &&
+                answers[3] !== answers[5] &&
+                answers[3] !== answers[1]
+        );
+
+    // console.log('checkCondition3(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  answerInvolved = ', answerInvolved);
+    // console.log('  answerCount = ', answerCount);
+    // console.log('  countValues = ', countValues);
+    // console.log('  countValues.length = ', countValues.length);
+    // console.log('  min = ', min);
+    // console.log('  max = ', max);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
 }
