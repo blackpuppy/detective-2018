@@ -10,7 +10,7 @@ $ php -f answer.php
  */
 
 /**
- * 检查答案。
+ * 检查答案是否符合所有问题的限制条件。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合所有条件，返回true；否则返回false。
  */
@@ -33,7 +33,6 @@ function check_answers($answers)
  * 第2题的答案为B时，第5题答案为D，或者
  * 第2题的答案为C时，第5题答案为A，或者
  * 第2题的答案为D时，第5题答案为B。
- * 。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合第2题的限制条件，返回true；否则返回false。
  */
@@ -195,19 +194,34 @@ function check_condition5($answers)
  * B时，第8题的答案与第1、6题答案相同，或者
  * C时，第8题的答案与第3、10题答案相同，或者
  * D时，第8题的答案与第5、9题答案相同，
+ * 并且只有一种成立。
  * @param  array $answers 所有问题的可能答案
  * @return bool           如果符合第6题的限制条件，返回true；否则返回false。
  */
 function check_condition6($answers)
 {
-    $result =
-        $answers[5] === 'A' && $answers[7] === $answers[1] && $answers[7] === $answers[3] ||
-        $answers[5] === 'B' && $answers[7] === $answers[0] && $answers[7] === $answers[5] ||
-        $answers[5] === 'C' && $answers[7] === $answers[2] && $answers[7] === $answers[9] ||
-        $answers[5] === 'D' && $answers[7] === $answers[4] && $answers[7] === $answers[8];
+    $checks = [
+        $answers[5] === 'A' && $answers[7] === $answers[1] && $answers[7] === $answers[3] ? 'true' : 'false',
+        $answers[5] === 'B' && $answers[7] === $answers[0] && $answers[7] === $answers[5] ? 'true' : 'false',
+        $answers[5] === 'C' && $answers[7] === $answers[2] && $answers[7] === $answers[9] ? 'true' : 'false',
+        $answers[5] === 'D' && $answers[7] === $answers[4] && $answers[7] === $answers[8] ? 'true' : 'false',
+    ];
+
+    $answer_count = [];
+    foreach ($checks as $c) {
+        if (!array_key_exists($c, $answer_count)) {
+            $answer_count[$c] = 1;
+        } else {
+            $answer_count[$c] = $answer_count[$c] + 1;
+        }
+    }
+
+    $result = $answer_count['false'] === 3
+        && $answer_count['true'] === 1;
 
     // echo PHP_EOL . 'check_condition6($answers):'
     //     . PHP_EOL . '  $answers = ' . print_r($answers, true)
+    //     . PHP_EOL . '  $answer_count = ' . print_r($answer_count, true)
     //     . PHP_EOL . '  $result = ' . $result
     //     . PHP_EOL . str_repeat('-', 80);
 
@@ -439,5 +453,9 @@ $answers[9] = $available_answers[$i9];
     // break 9;
 }}}}}}}}}}
 
-echo '有' . count($all_answers) . '种答案'
-    . PHP_EOL . '$all_answers = ' . print_r($all_answers, true);
+echo '有' . count($all_answers) . '种答案';
+foreach ($all_answers as $answer) {
+    foreach ($answer as $ndx => $a) {
+        echo PHP_EOL . ($ndx + 1) . ". $a";
+    }
+}
