@@ -17,9 +17,11 @@ $ dotnet run
 - [Getting started with .NET Core on macOS](https://docs.microsoft.com/en-us/dotnet/core/tutorials/using-on-macos)
 - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/macos)
 - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/linux/centos)
+- [C# Array.ForEach](https://www.dotnetperls.com/array-foreach)
  */
 
 using System;
+using System.Linq;
 using System.Collections.Generic;
 
 namespace ZhuMing.Detective2018
@@ -122,8 +124,8 @@ namespace ZhuMing.Detective2018
 
         static bool checkAnswers(string[] answers)
         {
-            return checkCondition2(answers);  // 第2题的限制条件
-            //     && checkCondition3(answers)   // 第3题的限制条件
+            return checkCondition2(answers)   // 第2题的限制条件
+                && checkCondition3(answers);  // 第3题的限制条件
             //     && checkCondition4(answers)   // 第4题的限制条件
             //     && checkCondition5(answers)   // 第5题的限制条件
             //     && checkCondition6(answers)   // 第6题的限制条件
@@ -133,6 +135,17 @@ namespace ZhuMing.Detective2018
             //     && checkCondition10(answers); // 第10题的限制条件
         }
 
+        /**
+        * 检查第2题的限制条件：
+        * 第2题的答案为A时，第5题答案为C，或者
+        * 第2题的答案为B时，第5题答案为D，或者
+        * 第2题的答案为C时，第5题答案为A，或者
+        * 第2题的答案为D时，第5题答案为B。
+        *
+        * @param  string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第2题的限制条件，返回true；否则返回false。
+        */
         static bool checkCondition2(string[] answers)
         {
             var result =
@@ -151,5 +164,77 @@ namespace ZhuMing.Detective2018
             return result;
         }
 
+        /**
+        * 检查第3题的限制条件：第3、6、2、4题的答案，有1个与其它3个不同，且
+        * 第3题的答案为A时，不同的答案为第3题，或者
+        * 第3题的答案为B时，不同的答案为第6题，或者
+        * 第3题的答案为C时，不同的答案为第2题，或者
+        * 第3题的答案为D时，不同的答案为第4题。
+        *
+        * @param  string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第3题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition3(string[] answers)
+        {
+            var answerCount = new Dictionary<string, int>();
+            var answerInvolved = new String[] {
+                    answers[2], // 第3题的答案
+                    answers[5], // 第6题的答案
+                    answers[1], // 第2题的答案
+                    answers[3], // 第4题的答案
+                };
+
+            Array.ForEach(answerInvolved, a => {
+                if (answerCount.ContainsKey(a)) {
+                    answerCount[a] = answerCount[a] + 1;
+                } else {
+                    answerCount[a] = 1;
+                }
+            });
+
+            var countValues = answerCount.Values;
+
+            var min = countValues.Min();
+            var max = countValues.Max();
+
+            var result = countValues.Count == 2 &&
+                min == 1 &&
+                max == 3 &&
+                (
+                    answers[2] == "A" &&
+                        answers[2] != answers[5] &&
+                        answers[2] != answers[1] &&
+                        answers[2] != answers[3]
+                    ||
+                    answers[2] == "B" &&
+                        answers[5] != answers[2] &&
+                        answers[5] != answers[1] &&
+                        answers[5] != answers[3]
+                    ||
+                    answers[2] == "C" &&
+                        answers[1] != answers[2] &&
+                        answers[1] != answers[5] &&
+                        answers[1] != answers[3]
+                    ||
+                    answers[2] == "D" &&
+                        answers[3] != answers[2] &&
+                        answers[3] != answers[5] &&
+                        answers[3] != answers[1]
+                );
+
+            // Console.WriteLine("checkCondition3(answers):");
+            // Console.WriteLine("  answers = [{0}]", String.Join(", ", answers));
+            // Console.WriteLine("  answerInvolved = [{0}]", String.Join(", ", answerInvolved));
+            // // Console.WriteLine("  answerCount = {0}", answerCount);
+            // // Console.WriteLine("  countValues = {0}", countValues);
+            // Console.WriteLine("  countValues.Count = {0}", countValues.Count);
+            // Console.WriteLine("  min = {0}", min);
+            // Console.WriteLine("  max = {0}", max);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new String('-', 80));
+
+            return result;
+        }
     }
 }
