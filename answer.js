@@ -15,6 +15,7 @@ $ node answer.js
 
 参考:
 - http://2ality.com/2013/11/initializing-arrays.html
+- http://www.xenoveritas.org/blog/xeno/the-correct-way-to-clone-javascript-arrays
  */
 
 findAnswers();
