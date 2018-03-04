@@ -8,6 +8,7 @@ $ node answer.js
 经过第4题的限制条件:     3,072
 经过第5题的限制条件:       448
 经过第6题的限制条件:        40
+经过第7题的限制条件:        17
  */
 
 findAnswers();
@@ -30,6 +31,9 @@ function findAnswers() {
 
     // checkCondition6(['A', 'C', 'A', 'A', 'B', 'B', 'A', 'D', 'C', 'D']); // false
     // checkCondition6(['A', 'C', 'D', 'A', 'B', 'C', 'B', 'D', 'A', 'D']); // true
+
+    // checkCondition7(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'D']); // false
+    // checkCondition7(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'D']); // true
 
     // return;
 
@@ -108,8 +112,8 @@ function checkAnswers(answers)
         && checkCondition3(answers)   // 第3题的限制条件
         && checkCondition4(answers)   // 第4题的限制条件
         && checkCondition5(answers)   // 第5题的限制条件
-        && checkCondition6(answers);  // 第6题的限制条件
-        // && checkCondition7(answers)   // 第7题的限制条件
+        && checkCondition6(answers)   // 第6题的限制条件
+        && checkCondition7(answers);  // 第7题的限制条件
         // && checkCondition8(answers)   // 第8题的限制条件
         // && checkCondition9(answers)   // 第9题的限制条件
         // && checkCondition10(answers); // 第10题的限制条件
@@ -302,14 +306,60 @@ function checkCondition6(answers)
         }
     });
 
-    $result = answerCount['false'] === 3
+    result = answerCount['false'] === 3
         && answerCount['true'] === 1;
 
     // console.log('checkCondition6(answers):');
     // console.log('  answers = ', answers);
     // console.log('  answerCount = ', answerCount);
-    // console.log('  $result = ', $result);
+    // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
-    return $result;
+    return result;
+}
+
+/**
+ * 检查第7题的限制条件：第7题的答案为
+ * A时，在此10题的答案中，被选中次数最少的选项字母为A，或者
+ * B时，在此10题的答案中，被选中次数最少的选项字母为B，或者
+ * C时，在此10题的答案中，被选中次数最少的选项字母为C，或者
+ * D时，在此10题的答案中，被选中次数最少的选项字母为D。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第7题的限制条件，返回true；否则返回false。
+ */
+function checkCondition7(answers)
+{
+    var answerCount = [];
+    answers.map(function (a) {
+        if (a in answerCount) {
+            answerCount[a] = answerCount[a] + 1;
+        } else {
+            answerCount[a] = 1;
+        }
+    });
+
+    var countValues = [];
+    for (var key in answerCount) {
+        if (answerCount.hasOwnProperty(key)) {
+            countValues.push(answerCount[key]);
+        }
+    }
+
+    var minCount = Math.min(...countValues);
+
+    result =
+        answers[6] === 'A' && answerCount['A'] === minCount ||
+        answers[6] === 'B' && answerCount['B'] === minCount ||
+        answers[6] === 'C' && answerCount['C'] === minCount ||
+        answers[6] === 'D' && answerCount['D'] === minCount;
+
+    // console.log('checkCondition7(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  minCount = ', minCount);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
 }
