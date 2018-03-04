@@ -7,6 +7,7 @@ $ node answer.js
 经过第3题的限制条件:    12,288
 经过第4题的限制条件:     3,072
 经过第5题的限制条件:       448
+经过第6题的限制条件:        40
  */
 
 findAnswers();
@@ -26,6 +27,9 @@ function findAnswers() {
 
     // checkCondition5(['A', 'C', 'A', 'A', 'B', 'C', 'A', 'D', 'C', 'D']); // false
     // checkCondition5(['A', 'C', 'A', 'A', 'A', 'A', 'B', 'A', 'A', 'D']); // true
+
+    // checkCondition6(['A', 'C', 'A', 'A', 'B', 'B', 'A', 'D', 'C', 'D']); // false
+    // checkCondition6(['A', 'C', 'D', 'A', 'B', 'C', 'B', 'D', 'A', 'D']); // true
 
     // return;
 
@@ -103,8 +107,8 @@ function checkAnswers(answers)
     return checkCondition2(answers)   // 第2题的限制条件
         && checkCondition3(answers)   // 第3题的限制条件
         && checkCondition4(answers)   // 第4题的限制条件
-        && checkCondition5(answers);  // 第5题的限制条件
-        // && checkCondition6(answers)   // 第6题的限制条件
+        && checkCondition5(answers)   // 第5题的限制条件
+        && checkCondition6(answers);  // 第6题的限制条件
         // && checkCondition7(answers)   // 第7题的限制条件
         // && checkCondition8(answers)   // 第8题的限制条件
         // && checkCondition9(answers)   // 第9题的限制条件
@@ -266,4 +270,46 @@ function checkCondition5(answers)
     // console.log(new Array(80).fill('-').join(''));
 
     return result;
+}
+
+/**
+ * 检查第6题的限制条件：第6题的答案为
+ * A时，第8题的答案与第2、4题答案相同，或者
+ * B时，第8题的答案与第1、6题答案相同，或者
+ * C时，第8题的答案与第3、10题答案相同，或者
+ * D时，第8题的答案与第5、9题答案相同，
+ * 并且只有一种成立。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第6题的限制条件，返回true；否则返回false。
+ */
+function checkCondition6(answers)
+{
+    var answerCount = [],
+        checks = [
+            answers[5] === 'A' && answers[7] === answers[1] && answers[7] === answers[3] ? 'true' : 'false',
+            answers[5] === 'B' && answers[7] === answers[0] && answers[7] === answers[5] ? 'true' : 'false',
+            answers[5] === 'C' && answers[7] === answers[2] && answers[7] === answers[9] ? 'true' : 'false',
+            answers[5] === 'D' && answers[7] === answers[4] && answers[7] === answers[8] ? 'true' : 'false',
+        ];
+
+    checks.map(function (c) {
+        if (c in answerCount) {
+            answerCount[c] = answerCount[c] + 1;
+        } else {
+            answerCount[c] = 1;
+        }
+    });
+
+    $result = answerCount['false'] === 3
+        && answerCount['true'] === 1;
+
+    // console.log('checkCondition6(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  answerCount = ', answerCount);
+    // console.log('  $result = ', $result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return $result;
 }
