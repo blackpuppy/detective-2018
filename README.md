@@ -9,5 +9,6 @@
 下面为各种语言的解法：
 
 - [PHP](https://github.com/blackpuppy/detective-2018/blob/master/answer.php)
+- [JavaScript](https://github.com/blackpuppy/detective-2018/blob/master/answer.js)
 
 欢迎大家[fork](https://github.com/blackpuppy/detective-2018#fork-destination-box)，增加其他语言的解法。
