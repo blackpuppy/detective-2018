@@ -11,6 +11,7 @@ $ node answer.js
 经过第7题的限制条件:        17
 经过第8题的限制条件:         8
 经过第9题的限制条件:         5
+经过第10题的限制条件:        1
 
 参考:
 - http://2ality.com/2013/11/initializing-arrays.html
@@ -45,6 +46,9 @@ function findAnswers() {
 
     // checkCondition9(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
     // checkCondition9(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
+
+    // checkCondition10(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+    // checkCondition10(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
 
     // return;
 
@@ -89,25 +93,19 @@ function findAnswers() {
     for (i9 = 0; i9 < 4; i9++) { // Q10
     answers[9] = availableAnswers[i9];
 
-        // console.log('in loop:');
-        // console.log('  answers = ', answers);
-
         if (checkAnswers(answers)) {
-            allAnswers.push(answers);
+            allAnswers.push(answers.slice(0));
         }
-        // break 9;
     }}}}}}}}}}
 
     console.log('有' + allAnswers.length + '种答案');
-    // for (var i = 0; i < allAnswers.length; i++) {
-    //     var answer = allAnswers[i];
-    //     for (var j = 0; j < answer.length; j++) {
-    //         var a = answer[j];
-    //         console.log((j + 1) + ". a");
-    //     }
-    // }
-
-    // console.log('  answers = ', answers);
+    for (var i = 0; i < allAnswers.length; i++) {
+        var answer = allAnswers[i];
+        for (var j = 0; j < answer.length; j++) {
+            var a = answer[j];
+            console.log((j + 1) + '. ' + a);
+        }
+    }
 }
 
 /**
@@ -126,8 +124,8 @@ function checkAnswers(answers)
         && checkCondition6(answers)   // 第6题的限制条件
         && checkCondition7(answers)   // 第7题的限制条件
         && checkCondition8(answers)   // 第8题的限制条件
-        && checkCondition9(answers);  // 第9题的限制条件
-        // && checkCondition10(answers); // 第10题的限制条件
+        && checkCondition9(answers)   // 第9题的限制条件
+        && checkCondition10(answers); // 第10题的限制条件
 }
 
 /**
@@ -446,6 +444,62 @@ function checkCondition9(answers)
     // console.log('  questionIndex = ', questionIndex);
     // console.log('  bool1 = ', bool1);
     // console.log('  bool2 = ', bool2);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
+}
+
+/**
+ * 检查第10题的限制条件：第10题的答案为
+ * A时，此10道题中4个字母出现次数最多与最少的差为3，或者
+ * B时，此10道题中4个字母出现次数最多与最少的差为2，或者
+ * C时，此10道题中4个字母出现次数最多与最少的差为4，或者
+ * D时，此10道题中4个字母出现次数最多与最少的差为1。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第10题的限制条件，返回true；否则返回false。
+ */
+function checkCondition10(answers)
+{
+    var answerCount = [],
+        countValues = [];
+
+    answers.map(function (a) {
+        if (a in answerCount) {
+            answerCount[a] = answerCount[a] + 1;
+        } else {
+            answerCount[a] = 1;
+        }
+    });
+
+    for (var key in answerCount) {
+        if (answerCount.hasOwnProperty(key)) {
+            countValues.push(answerCount[key]);
+        }
+    }
+
+    var minCount = Math.min(...countValues);
+        maxCount = Math.max(...countValues);
+    if (minCount === maxCount) {
+        minCount = 0;
+    }
+
+    var map = {
+            'A': 3,
+            'B': 2,
+            'C': 4,
+            'D': 1,
+        },
+        expected = map[answers[9]],
+        result = maxCount - minCount === expected;
+
+    // console.log('checkCondition10(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  minCount = ', minCount);
+    // console.log('  maxCount = ', maxCount);
+    // console.log('  expected = ', expected);
     // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
