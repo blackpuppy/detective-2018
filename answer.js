@@ -9,6 +9,10 @@ $ node answer.js
 经过第5题的限制条件:       448
 经过第6题的限制条件:        40
 经过第7题的限制条件:        17
+经过第8题的限制条件:         8
+
+参考:
+- http://2ality.com/2013/11/initializing-arrays.html
  */
 
 findAnswers();
@@ -34,6 +38,9 @@ function findAnswers() {
 
     // checkCondition7(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'D']); // false
     // checkCondition7(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'D']); // true
+
+    // checkCondition8(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+    // checkCondition8(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
 
     // return;
 
@@ -113,8 +120,8 @@ function checkAnswers(answers)
         && checkCondition4(answers)   // 第4题的限制条件
         && checkCondition5(answers)   // 第5题的限制条件
         && checkCondition6(answers)   // 第6题的限制条件
-        && checkCondition7(answers);  // 第7题的限制条件
-        // && checkCondition8(answers)   // 第8题的限制条件
+        && checkCondition7(answers)   // 第7题的限制条件
+        && checkCondition8(answers);  // 第8题的限制条件
         // && checkCondition9(answers)   // 第9题的限制条件
         // && checkCondition10(answers); // 第10题的限制条件
 }
@@ -358,6 +365,46 @@ function checkCondition7(answers)
     // console.log('checkCondition7(answers):');
     // console.log('  answers = ', answers);
     // console.log('  minCount = ', minCount);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
+}
+
+/**
+ * 检查第8题的限制条件：第8题的答案为
+ * A时，第1题的答案与第7题的答案在字母中不相邻，或者
+ * B时，第1题的答案与第5题的答案在字母中不相邻，或者
+ * C时，第1题的答案与第2题的答案在字母中不相邻，或者
+ * D时，第1题的答案与第10题的答案在字母中不相邻。
+ * @param  array answers 所有问题的可能答案
+ * @return bool           如果符合第8题的限制条件，返回true；否则返回false。
+ */
+function checkCondition8(answers)
+{
+    var map = {
+            'A': 6,
+            'B': 4,
+            'C': 1,
+            'D': 9,
+        },
+        otherQuestionIndex = map[answers[7]],
+        otherQuestionAnswer = answers[otherQuestionIndex];
+
+    ord8 = answers[7].charCodeAt(0);
+    ordOther = otherQuestionAnswer.charCodeAt(0);
+
+    diff = Math.abs(ord8 - ordOther);
+
+    result = diff > 1;
+
+    // console.log('checkCondition8(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  otherQuestionIndex = ', otherQuestionIndex);
+    // console.log('  otherQuestionAnswer = ', otherQuestionAnswer);
+    // console.log('  ord8 = ', ord8);
+    // console.log('  ordOther = ', ordOther);
+    // console.log('  diff = ', diff);
     // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
