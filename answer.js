@@ -10,6 +10,7 @@ $ node answer.js
 经过第6题的限制条件:        40
 经过第7题的限制条件:        17
 经过第8题的限制条件:         8
+经过第9题的限制条件:         5
 
 参考:
 - http://2ality.com/2013/11/initializing-arrays.html
@@ -41,6 +42,9 @@ function findAnswers() {
 
     // checkCondition8(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
     // checkCondition8(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
+
+    // checkCondition9(['A', 'C', 'A', 'D', 'B', 'B', 'A', 'D', 'C', 'C']); // false
+    // checkCondition9(['A', 'C', 'D', 'A', 'C', 'C', 'B', 'D', 'A', 'A']); // true
 
     // return;
 
@@ -121,8 +125,8 @@ function checkAnswers(answers)
         && checkCondition5(answers)   // 第5题的限制条件
         && checkCondition6(answers)   // 第6题的限制条件
         && checkCondition7(answers)   // 第7题的限制条件
-        && checkCondition8(answers);  // 第8题的限制条件
-        // && checkCondition9(answers)   // 第9题的限制条件
+        && checkCondition8(answers)   // 第8题的限制条件
+        && checkCondition9(answers);  // 第9题的限制条件
         // && checkCondition10(answers); // 第10题的限制条件
 }
 
@@ -377,8 +381,10 @@ function checkCondition7(answers)
  * B时，第1题的答案与第5题的答案在字母中不相邻，或者
  * C时，第1题的答案与第2题的答案在字母中不相邻，或者
  * D时，第1题的答案与第10题的答案在字母中不相邻。
- * @param  array answers 所有问题的可能答案
- * @return bool           如果符合第8题的限制条件，返回true；否则返回false。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第8题的限制条件，返回true；否则返回false。
  */
 function checkCondition8(answers)
 {
@@ -405,6 +411,41 @@ function checkCondition8(answers)
     // console.log('  ord8 = ', ord8);
     // console.log('  ordOther = ', ordOther);
     // console.log('  diff = ', diff);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
+}
+
+/**
+ * 检查第9题的限制条件：第9题的答案为
+ * A时，“第1题与第6题答案相同”与“第6题与第5题答案相同”的真假性相反，或者
+ * B时，“第1题与第6题答案相同”与“第10题与第5题答案相同”的真假性相反，或者
+ * C时，“第1题与第6题答案相同”与“第2题与第5题答案相同”的真假性相反，或者
+ * D时，“第1题与第6题答案相同”与“第9题与第5题答案相同”的真假性相反。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第9题的限制条件，返回true；否则返回false。
+ */
+function checkCondition9(answers)
+{
+    var map = {
+            'A': 5,
+            'B': 9,
+            'C': 1,
+            'D': 8,
+        },
+        questionIndex = map[answers[8]],
+        bool1 = answers[0] === answers[5],
+        bool2 = answers[questionIndex] === answers[4],
+        result = bool1 !== bool2;
+
+    // console.log('checkCondition9(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  questionIndex = ', questionIndex);
+    // console.log('  bool1 = ', bool1);
+    // console.log('  bool2 = ', bool2);
     // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
