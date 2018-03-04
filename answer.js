@@ -5,7 +5,8 @@ $ node answer.js
 所有答案可能性:     1,048,576
 经过第2题的限制条件:   262,144
 经过第3题的限制条件:    12,288
-经过第4题的限制条件:    12,288
+经过第4题的限制条件:     3,072
+经过第5题的限制条件:       448
  */
 
 findAnswers();
@@ -22,6 +23,9 @@ function findAnswers() {
 
     // checkCondition4(['A', 'C', 'A', 'A', 'B', 'C', 'B', 'D', 'D', 'D']); // false
     // checkCondition4(['A', 'C', 'A', 'C', 'B', 'A', 'B', 'D', 'A', 'D']); // true
+
+    // checkCondition5(['A', 'C', 'A', 'A', 'B', 'C', 'A', 'D', 'C', 'D']); // false
+    // checkCondition5(['A', 'C', 'A', 'A', 'A', 'A', 'B', 'A', 'A', 'D']); // true
 
     // return;
 
@@ -97,9 +101,9 @@ function findAnswers() {
 function checkAnswers(answers)
 {
     return checkCondition2(answers)   // 第2题的限制条件
-        && checkCondition3(answers);  // 第3题的限制条件
-        // && checkCondition4(answers)   // 第4题的限制条件
-        // && checkCondition5(answers)   // 第5题的限制条件
+        && checkCondition3(answers)   // 第3题的限制条件
+        && checkCondition4(answers)   // 第4题的限制条件
+        && checkCondition5(answers);  // 第5题的限制条件
         // && checkCondition6(answers)   // 第6题的限制条件
         // && checkCondition7(answers)   // 第7题的限制条件
         // && checkCondition8(answers)   // 第8题的限制条件
@@ -231,6 +235,32 @@ function checkCondition4(answers)
         || answers[3] === 'D' && answers[5] === answers[9];
 
     // console.log('checkCondition4(answers):');
+    // console.log('  answers = ', answers);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
+}
+
+/**
+ * 检查第5题的限制条件：第5题的答案为
+ * A时，与第8题答案相同，或者
+ * B时，与第4题答案相同，或者
+ * C时，与第9题答案相同，或者
+ * D时，与第7题答案相同。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第5题的限制条件，返回true；否则返回false。
+ */
+function checkCondition5(answers)
+{
+    result = answers[4] === 'A' && answers[4] === answers[7]
+        || answers[4] === 'B' && answers[4] === answers[3]
+        || answers[4] === 'C' && answers[4] === answers[8]
+        || answers[4] === 'D' && answers[4] === answers[6];
+
+    // console.log('checkCondition5(answers):');
     // console.log('  answers = ', answers);
     // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
