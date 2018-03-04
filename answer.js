@@ -5,6 +5,7 @@ $ node answer.js
 所有答案可能性:     1,048,576
 经过第2题的限制条件:   262,144
 经过第3题的限制条件:    12,288
+经过第4题的限制条件:    12,288
  */
 
 findAnswers();
@@ -18,6 +19,9 @@ function findAnswers() {
 
     // checkCondition3(['A', 'C', 'A', 'A', 'B', 'D', 'B', 'D', 'A', 'D']); // false
     // checkCondition3(['A', 'A', 'C', 'C', 'B', 'C', 'B', 'D', 'A', 'D']); // true
+
+    // checkCondition4(['A', 'C', 'A', 'A', 'B', 'C', 'B', 'D', 'D', 'D']); // false
+    // checkCondition4(['A', 'C', 'A', 'C', 'B', 'A', 'B', 'D', 'A', 'D']); // true
 
     // return;
 
@@ -202,6 +206,32 @@ function checkCondition3(answers)
     // console.log('  countValues.length = ', countValues.length);
     // console.log('  min = ', min);
     // console.log('  max = ', max);
+    // console.log('  result = ', result);
+    // console.log(new Array(80).fill('-').join(''));
+
+    return result;
+}
+
+/**
+ * 检查第4题的限制条件：第4题的答案为
+ * A时，第1、5题答案相同，或者
+ * B时，第2、7题答案相同，或者
+ * C时，第1、9题答案相同，或者
+ * D时，第6、10题答案相同。
+ *
+ * @param  {Object} answers - 所有问题的可能答案
+ *
+ * @returns {Boolean} 如果符合第4题的限制条件，返回true；否则返回false。
+ */
+function checkCondition4(answers)
+{
+    var result = answers[3] === 'A' && answers[0] === answers[4]
+        || answers[3] === 'B' && answers[1] === answers[6]
+        || answers[3] === 'C' && answers[0] === answers[8]
+        || answers[3] === 'D' && answers[5] === answers[9];
+
+    // console.log('checkCondition4(answers):');
+    // console.log('  answers = ', answers);
     // console.log('  result = ', result);
     // console.log(new Array(80).fill('-').join(''));
 
