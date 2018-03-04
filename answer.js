@@ -14,8 +14,8 @@ $ node answer.js
 经过第10题的限制条件:        1
 
 参考:
-- http://2ality.com/2013/11/initializing-arrays.html
-- http://www.xenoveritas.org/blog/xeno/the-correct-way-to-clone-javascript-arrays
+- [Initializing an array with values](http://2ality.com/2013/11/initializing-arrays.html)
+- [The Correct Way to Clone Javascript Arrays](http://www.xenoveritas.org/blog/xeno/the-correct-way-to-clone-javascript-arrays)
  */
 
 findAnswers();
