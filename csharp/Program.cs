@@ -125,8 +125,8 @@ namespace ZhuMing.Detective2018
         static bool checkAnswers(string[] answers)
         {
             return checkCondition2(answers)   // 第2题的限制条件
-                && checkCondition3(answers);  // 第3题的限制条件
-            //     && checkCondition4(answers)   // 第4题的限制条件
+                && checkCondition3(answers)   // 第3题的限制条件
+                && checkCondition4(answers);  // 第4题的限制条件
             //     && checkCondition5(answers)   // 第5题的限制条件
             //     && checkCondition6(answers)   // 第6题的限制条件
             //     && checkCondition7(answers)   // 第7题的限制条件
@@ -231,6 +231,32 @@ namespace ZhuMing.Detective2018
             // Console.WriteLine("  countValues.Count = {0}", countValues.Count);
             // Console.WriteLine("  min = {0}", min);
             // Console.WriteLine("  max = {0}", max);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new String('-', 80));
+
+            return result;
+        }
+
+        /**
+        * 检查第4题的限制条件：第4题的答案为
+        * A时，第1、5题答案相同，或者
+        * B时，第2、7题答案相同，或者
+        * C时，第1、9题答案相同，或者
+        * D时，第6、10题答案相同。
+        *
+        * @param  string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第4题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition4(string[] answers)
+        {
+            var result = answers[3] == "A" && answers[0] == answers[4]
+                || answers[3] == "B" && answers[1] == answers[6]
+                || answers[3] == "C" && answers[0] == answers[8]
+                || answers[3] == "D" && answers[5] == answers[9];
+
+            // Console.WriteLine("checkCondition4(answers):");
+            // Console.WriteLine("  answers = {0}", answers);
             // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
 
