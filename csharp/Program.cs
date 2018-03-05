@@ -132,8 +132,8 @@ namespace ZhuMing.Detective2018
                 && checkCondition5(answers)   // 第5题的限制条件
                 && checkCondition6(answers)   // 第6题的限制条件
                 && checkCondition7(answers)   // 第7题的限制条件
-                && checkCondition8(answers);  // 第8题的限制条件
-            //     && checkCondition9(answers)   // 第9题的限制条件
+                && checkCondition8(answers)   // 第8题的限制条件
+                && checkCondition9(answers);  // 第9题的限制条件
             //     && checkCondition10(answers); // 第10题的限制条件
         }
 
