@@ -8,6 +8,7 @@
 
 下面为各种语言的解法：
 
+- [C#](https://github.com/blackpuppy/detective-2018/blob/master/csharp/Program.cs)
 - [JavaScript](https://github.com/blackpuppy/detective-2018/blob/master/answer.js)
 - [PHP](https://github.com/blackpuppy/detective-2018/blob/master/answer.php)
 
@@ -24,3 +25,5 @@
   - [Getting started with .NET Core on macOS](https://docs.microsoft.com/en-us/dotnet/core/tutorials/using-on-macos)
   - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/macos)
   - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/linux/centos)
+  - [C# Array.ForEach](https://www.dotnetperls.com/array-foreach)
+  - [Encoding.GetBytes Method (String)](https://msdn.microsoft.com/en-us/library/ds4kkd55(v=vs.110).aspx)
