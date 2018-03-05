@@ -130,8 +130,8 @@ namespace ZhuMing.Detective2018
                 && checkCondition3(answers)   // 第3题的限制条件
                 && checkCondition4(answers)   // 第4题的限制条件
                 && checkCondition5(answers)   // 第5题的限制条件
-                && checkCondition6(answers);  // 第6题的限制条件
-            //     && checkCondition7(answers)   // 第7题的限制条件
+                && checkCondition6(answers)   // 第6题的限制条件
+                && checkCondition7(answers);  // 第7题的限制条件
             //     && checkCondition8(answers)   // 第8题的限制条件
             //     && checkCondition9(answers)   // 第9题的限制条件
             //     && checkCondition10(answers); // 第10题的限制条件
@@ -364,10 +364,10 @@ namespace ZhuMing.Detective2018
                 answers[6] == "C" && answerCount["C"] == minCount ||
                 answers[6] == "D" && answerCount["D"] == minCount;
 
-            // Console.WriteLine('checkCondition7(answers):');
-            // Console.WriteLine('  answers = {0}', String.Join(", ", answers));
-            // Console.WriteLine('  minCount = {0}', minCount);
-            // Console.WriteLine('  result = {0}', result);
+            // Console.WriteLine("checkCondition7(answers):");
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
+            // Console.WriteLine("  minCount = {0}", minCount);
+            // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
 
             return result;
