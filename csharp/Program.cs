@@ -131,8 +131,8 @@ namespace ZhuMing.Detective2018
                 && checkCondition4(answers)   // 第4题的限制条件
                 && checkCondition5(answers)   // 第5题的限制条件
                 && checkCondition6(answers)   // 第6题的限制条件
-                && checkCondition7(answers);  // 第7题的限制条件
-            //     && checkCondition8(answers)   // 第8题的限制条件
+                && checkCondition7(answers)   // 第7题的限制条件
+                && checkCondition8(answers);  // 第8题的限制条件
             //     && checkCondition9(answers)   // 第9题的限制条件
             //     && checkCondition10(answers); // 第10题的限制条件
         }
@@ -407,8 +407,8 @@ namespace ZhuMing.Detective2018
             // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  otherQuestionIndex = {0}", otherQuestionIndex);
             // Console.WriteLine("  otherQuestionAnswer = {0}", otherQuestionAnswer);
-            // Console.WriteLine("  ord8 = {0}", ord8);
-            // Console.WriteLine("  ordOther = {0}", ordOther);
+            // Console.WriteLine("  ord8 = {0}", ord8[0]);
+            // Console.WriteLine("  ordOther = {0}", ordOther[0]);
             // Console.WriteLine("  diff = {0}", diff);
             // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
