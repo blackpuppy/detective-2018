@@ -18,11 +18,13 @@ $ dotnet run
 - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/macos)
 - [Get started with .NET in 10 minutes](https://www.microsoft.com/net/learn/get-started/linux/centos)
 - [C# Array.ForEach](https://www.dotnetperls.com/array-foreach)
+- [Encoding.GetBytes Method (String)](https://msdn.microsoft.com/en-us/library/ds4kkd55(v=vs.110).aspx)
  */
 
 using System;
-using System.Linq;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 
 namespace ZhuMing.Detective2018
 {
@@ -126,8 +128,8 @@ namespace ZhuMing.Detective2018
         {
             return checkCondition2(answers)   // 第2题的限制条件
                 && checkCondition3(answers)   // 第3题的限制条件
-                && checkCondition4(answers);  // 第4题的限制条件
-            //     && checkCondition5(answers)   // 第5题的限制条件
+                && checkCondition4(answers)   // 第4题的限制条件
+                && checkCondition5(answers);  // 第5题的限制条件
             //     && checkCondition6(answers)   // 第6题的限制条件
             //     && checkCondition7(answers)   // 第7题的限制条件
             //     && checkCondition8(answers)   // 第8题的限制条件
@@ -142,7 +144,7 @@ namespace ZhuMing.Detective2018
         * 第2题的答案为C时，第5题答案为A，或者
         * 第2题的答案为D时，第5题答案为B。
         *
-        * @param  string[] answers - 所有问题的可能答案
+        * @param string[] answers - 所有问题的可能答案
         *
         * @returns bool 如果符合第2题的限制条件，返回true；否则返回false。
         */
@@ -171,7 +173,7 @@ namespace ZhuMing.Detective2018
         * 第3题的答案为C时，不同的答案为第2题，或者
         * 第3题的答案为D时，不同的答案为第4题。
         *
-        * @param  string[] answers - 所有问题的可能答案
+        * @param string[] answers - 所有问题的可能答案
         *
         * @returns bool 如果符合第3题的限制条件，返回true；否则返回false。
         */
@@ -244,7 +246,7 @@ namespace ZhuMing.Detective2018
         * C时，第1、9题答案相同，或者
         * D时，第6、10题答案相同。
         *
-        * @param  string[] answers - 所有问题的可能答案
+        * @param string[] answers - 所有问题的可能答案
         *
         * @returns bool 如果符合第4题的限制条件，返回true；否则返回false。
         */
@@ -259,6 +261,243 @@ namespace ZhuMing.Detective2018
             // Console.WriteLine("  answers = {0}", answers);
             // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
+
+            return result;
+        }
+
+        /**
+        * 检查第5题的限制条件：第5题的答案为
+        * A时，与第8题答案相同，或者
+        * B时，与第4题答案相同，或者
+        * C时，与第9题答案相同，或者
+        * D时，与第7题答案相同。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第5题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition5(string[] answers)
+        {
+            var result = answers[4] == "A" && answers[4] == answers[7]
+                || answers[4] == "B" && answers[4] == answers[3]
+                || answers[4] == "C" && answers[4] == answers[8]
+                || answers[4] == "D" && answers[4] == answers[6];
+
+            // Console.WriteLine("checkCondition5(answers):");
+            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new String('-', 80));
+
+            return result;
+        }
+
+        /**
+        * 检查第6题的限制条件：第6题的答案为
+        * A时，第8题的答案与第2、4题答案相同，或者
+        * B时，第8题的答案与第1、6题答案相同，或者
+        * C时，第8题的答案与第3、10题答案相同，或者
+        * D时，第8题的答案与第5、9题答案相同，
+        * 并且只有一种成立。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第6题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition6(string[] answers)
+        {
+            var answerCount = new Dictionary<string, int>();
+            var checks = new string[] {
+                    answers[5] == "A" && answers[7] == answers[1] && answers[7] == answers[3] ? "true" : "false",
+                    answers[5] == "B" && answers[7] == answers[0] && answers[7] == answers[5] ? "true" : "false",
+                    answers[5] == "C" && answers[7] == answers[2] && answers[7] == answers[9] ? "true" : "false",
+                    answers[5] == "D" && answers[7] == answers[4] && answers[7] == answers[8] ? "true" : "false",
+                };
+
+            Array.ForEach(checks, c => {
+                if (answerCount.ContainsKey(c)) {
+                    answerCount[c] = answerCount[c] + 1;
+                } else {
+                    answerCount[c] = 1;
+                }
+            });
+
+            var result = answerCount["false"] == 3
+                && answerCount["true"] == 1;
+
+            // Console.WriteLine('checkCondition6(answers):');
+            // Console.WriteLine('  answers = {0}', answers);
+            // Console.WriteLine('  answerCount = {0}', answerCount);
+            // Console.WriteLine('  result = {0}', result);
+            // Console.WriteLine(new Array(80).fill('-').join(''));
+
+            return result;
+        }
+
+        /**
+        * 检查第7题的限制条件：第7题的答案为
+        * A时，在此10题的答案中，被选中次数最少的选项字母为A，或者
+        * B时，在此10题的答案中，被选中次数最少的选项字母为B，或者
+        * C时，在此10题的答案中，被选中次数最少的选项字母为C，或者
+        * D时，在此10题的答案中，被选中次数最少的选项字母为D。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第7题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition7(string[] answers)
+        {
+            var answerCount = new Dictionary<string, int>();
+            Array.ForEach(answers, a => {
+                if (answerCount.ContainsKey(a)) {
+                    answerCount[a] = answerCount[a] + 1;
+                } else {
+                    answerCount[a] = 1;
+                }
+            });
+
+            var countValues = answerCount.Values;
+            var minCount = countValues.Min();
+
+            var result =
+                answers[6] == "A" && answerCount["A"] == minCount ||
+                answers[6] == "B" && answerCount["B"] == minCount ||
+                answers[6] == "C" && answerCount["C"] == minCount ||
+                answers[6] == "D" && answerCount["D"] == minCount;
+
+            // Console.WriteLine('checkCondition7(answers):');
+            // Console.WriteLine('  answers = {0}', answers);
+            // Console.WriteLine('  minCount = {0}', minCount);
+            // Console.WriteLine('  result = {0}', result);
+            // Console.WriteLine(new Array(80).fill('-').join(''));
+
+            return result;
+        }
+
+        /**
+        * 检查第8题的限制条件：第8题的答案为
+        * A时，第1题的答案与第7题的答案在字母中不相邻，或者
+        * B时，第1题的答案与第5题的答案在字母中不相邻，或者
+        * C时，第1题的答案与第2题的答案在字母中不相邻，或者
+        * D时，第1题的答案与第10题的答案在字母中不相邻。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第8题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition8(string[] answers)
+        {
+            var map = new Dictionary<string, int>() {
+                    { "A", 6 },
+                    { "B", 4 },
+                    { "C", 1 },
+                    { "D", 9 }
+                };
+            var otherQuestionIndex = map[answers[7]];
+            var otherQuestionAnswer = answers[otherQuestionIndex];
+
+            Encoding u7 = Encoding.UTF7;
+            var ord8 = u7.GetBytes(answers[7]);
+            var ordOther = u7.GetBytes(otherQuestionAnswer);
+
+            var diff = Math.Abs(ord8[0] - ordOther[0]);
+
+            var result = diff > 1;
+
+            // Console.WriteLine("checkCondition8(answers):");
+            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  otherQuestionIndex = {0}", otherQuestionIndex);
+            // Console.WriteLine("  otherQuestionAnswer = {0}", otherQuestionAnswer);
+            // Console.WriteLine("  ord8 = {0}", ord8);
+            // Console.WriteLine("  ordOther = {0}", ordOther);
+            // Console.WriteLine("  diff = {0}", diff);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new Array(80).fill('-').join(''));
+
+            return result;
+        }
+
+        /**
+        * 检查第9题的限制条件：第9题的答案为
+        * A时，“第1题与第6题答案相同”与“第6题与第5题答案相同”的真假性相反，或者
+        * B时，“第1题与第6题答案相同”与“第10题与第5题答案相同”的真假性相反，或者
+        * C时，“第1题与第6题答案相同”与“第2题与第5题答案相同”的真假性相反，或者
+        * D时，“第1题与第6题答案相同”与“第9题与第5题答案相同”的真假性相反。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第9题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition9(string[] answers)
+        {
+            var map = new Dictionary<string, int>() {
+                    { "A", 5 },
+                    { "B", 9 },
+                    { "C", 1 },
+                    { "D", 8 }
+                };
+            var questionIndex = map[answers[8]];
+            var bool1 = answers[0] == answers[5];
+            var bool2 = answers[questionIndex] == answers[4];
+            var result = bool1 != bool2;
+
+            // Console.WriteLine("checkCondition9(answers):");
+            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  questionIndex = {0}", questionIndex);
+            // Console.WriteLine("  bool1 = {0}", bool1);
+            // Console.WriteLine("  bool2 = {0}", bool2);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new Array(80).fill('-').join(''));
+
+            return result;
+        }
+
+        /**
+        * 检查第10题的限制条件：第10题的答案为
+        * A时，此10道题中4个字母出现次数最多与最少的差为3，或者
+        * B时，此10道题中4个字母出现次数最多与最少的差为2，或者
+        * C时，此10道题中4个字母出现次数最多与最少的差为4，或者
+        * D时，此10道题中4个字母出现次数最多与最少的差为1。
+        *
+        * @param string[] answers - 所有问题的可能答案
+        *
+        * @returns bool 如果符合第10题的限制条件，返回true；否则返回false。
+        */
+        static bool checkCondition10(string[] answers)
+        {
+            var answerCount = new Dictionary<string, int>();
+
+            Array.ForEach(answers, a => {
+                if (answerCount.ContainsKey(a)) {
+                    answerCount[a] = answerCount[a] + 1;
+                } else {
+                    answerCount[a] = 1;
+                }
+            });
+
+            var countValues = answerCount.Values;
+
+            var minCount = countValues.Min();
+            var maxCount = countValues.Max();
+            if (minCount == maxCount) {
+                minCount = 0;
+            }
+
+            var map = new Dictionary<string, int>() {
+                    { "A", 3},
+                    { "B", 2},
+                    { "C", 4},
+                    { "D", 1}
+                };
+            var expected = map[answers[9]];
+            var result = maxCount - minCount == expected;
+
+            // Console.WriteLine('checkCondition10(answers):');
+            // Console.WriteLine('  answers = {0}', answers);
+            // Console.WriteLine('  minCount = {0}', minCount);
+            // Console.WriteLine('  maxCount = {0}', maxCount);
+            // Console.WriteLine('  expected = {0}', expected);
+            // Console.WriteLine('  result = {0}', result);
+            // Console.WriteLine(new Array(80).fill('-').join(''));
 
             return result;
         }

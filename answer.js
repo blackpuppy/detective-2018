@@ -273,7 +273,7 @@ function checkCondition4(answers)
  */
 function checkCondition5(answers)
 {
-    result = answers[4] === 'A' && answers[4] === answers[7]
+    var result = answers[4] === 'A' && answers[4] === answers[7]
         || answers[4] === 'B' && answers[4] === answers[3]
         || answers[4] === 'C' && answers[4] === answers[8]
         || answers[4] === 'D' && answers[4] === answers[6];
@@ -316,7 +316,7 @@ function checkCondition6(answers)
         }
     });
 
-    result = answerCount['false'] === 3
+    var result = answerCount['false'] === 3
         && answerCount['true'] === 1;
 
     // console.log('checkCondition6(answers):');
@@ -359,7 +359,7 @@ function checkCondition7(answers)
 
     var minCount = Math.min(...countValues);
 
-    result =
+    var result =
         answers[6] === 'A' && answerCount['A'] === minCount ||
         answers[6] === 'B' && answerCount['B'] === minCount ||
         answers[6] === 'C' && answerCount['C'] === minCount ||
@@ -396,12 +396,12 @@ function checkCondition8(answers)
         otherQuestionIndex = map[answers[7]],
         otherQuestionAnswer = answers[otherQuestionIndex];
 
-    ord8 = answers[7].charCodeAt(0);
-    ordOther = otherQuestionAnswer.charCodeAt(0);
+    var ord8 = answers[7].charCodeAt(0);
+    var ordOther = otherQuestionAnswer.charCodeAt(0);
 
-    diff = Math.abs(ord8 - ordOther);
+    var diff = Math.abs(ord8 - ordOther);
 
-    result = diff > 1;
+    var result = diff > 1;
 
     // console.log('checkCondition8(answers):');
     // console.log('  answers = ', answers);
@@ -481,7 +481,7 @@ function checkCondition10(answers)
         }
     }
 
-    var minCount = Math.min(...countValues);
+    var minCount = Math.min(...countValues),
         maxCount = Math.max(...countValues);
     if (minCount === maxCount) {
         minCount = 0;
