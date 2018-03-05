@@ -129,8 +129,8 @@ namespace ZhuMing.Detective2018
             return checkCondition2(answers)   // 第2题的限制条件
                 && checkCondition3(answers)   // 第3题的限制条件
                 && checkCondition4(answers)   // 第4题的限制条件
-                && checkCondition5(answers);  // 第5题的限制条件
-            //     && checkCondition6(answers)   // 第6题的限制条件
+                && checkCondition5(answers)   // 第5题的限制条件
+                && checkCondition6(answers);  // 第6题的限制条件
             //     && checkCondition7(answers)   // 第7题的限制条件
             //     && checkCondition8(answers)   // 第8题的限制条件
             //     && checkCondition9(answers)   // 第9题的限制条件
@@ -157,7 +157,7 @@ namespace ZhuMing.Detective2018
                 answers[1] == "D" && answers[4] == "B";
 
             // Console.WriteLine("checkCondition2(answers):");
-            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  answers[1] = {0}", answers[1]);
             // Console.WriteLine("  answers[4] = {0}", answers[4]);
             // Console.WriteLine("  result = {0}", result);
@@ -258,7 +258,7 @@ namespace ZhuMing.Detective2018
                 || answers[3] == "D" && answers[5] == answers[9];
 
             // Console.WriteLine("checkCondition4(answers):");
-            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
 
@@ -284,7 +284,7 @@ namespace ZhuMing.Detective2018
                 || answers[4] == "D" && answers[4] == answers[6];
 
             // Console.WriteLine("checkCondition5(answers):");
-            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
 
@@ -324,11 +324,11 @@ namespace ZhuMing.Detective2018
             var result = answerCount["false"] == 3
                 && answerCount["true"] == 1;
 
-            // Console.WriteLine('checkCondition6(answers):');
-            // Console.WriteLine('  answers = {0}', answers);
-            // Console.WriteLine('  answerCount = {0}', answerCount);
-            // Console.WriteLine('  result = {0}', result);
-            // Console.WriteLine(new Array(80).fill('-').join(''));
+            // Console.WriteLine("checkCondition6(answers):");
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
+            // Console.WriteLine("  answerCount = {0}", answerCount);
+            // Console.WriteLine("  result = {0}", result);
+            // Console.WriteLine(new String('-', 80));
 
             return result;
         }
@@ -365,10 +365,10 @@ namespace ZhuMing.Detective2018
                 answers[6] == "D" && answerCount["D"] == minCount;
 
             // Console.WriteLine('checkCondition7(answers):');
-            // Console.WriteLine('  answers = {0}', answers);
+            // Console.WriteLine('  answers = {0}', String.Join(", ", answers));
             // Console.WriteLine('  minCount = {0}', minCount);
             // Console.WriteLine('  result = {0}', result);
-            // Console.WriteLine(new Array(80).fill('-').join(''));
+            // Console.WriteLine(new String('-', 80));
 
             return result;
         }
@@ -404,14 +404,14 @@ namespace ZhuMing.Detective2018
             var result = diff > 1;
 
             // Console.WriteLine("checkCondition8(answers):");
-            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  otherQuestionIndex = {0}", otherQuestionIndex);
             // Console.WriteLine("  otherQuestionAnswer = {0}", otherQuestionAnswer);
             // Console.WriteLine("  ord8 = {0}", ord8);
             // Console.WriteLine("  ordOther = {0}", ordOther);
             // Console.WriteLine("  diff = {0}", diff);
             // Console.WriteLine("  result = {0}", result);
-            // Console.WriteLine(new Array(80).fill('-').join(''));
+            // Console.WriteLine(new String('-', 80));
 
             return result;
         }
@@ -441,12 +441,12 @@ namespace ZhuMing.Detective2018
             var result = bool1 != bool2;
 
             // Console.WriteLine("checkCondition9(answers):");
-            // Console.WriteLine("  answers = {0}", answers);
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
             // Console.WriteLine("  questionIndex = {0}", questionIndex);
             // Console.WriteLine("  bool1 = {0}", bool1);
             // Console.WriteLine("  bool2 = {0}", bool2);
             // Console.WriteLine("  result = {0}", result);
-            // Console.WriteLine(new Array(80).fill('-').join(''));
+            // Console.WriteLine(new String('-', 80));
 
             return result;
         }
@@ -492,12 +492,12 @@ namespace ZhuMing.Detective2018
             var result = maxCount - minCount == expected;
 
             // Console.WriteLine('checkCondition10(answers):');
-            // Console.WriteLine('  answers = {0}', answers);
+            // Console.WriteLine('  answers = {0}', String.Join(", ", answers));
             // Console.WriteLine('  minCount = {0}', minCount);
             // Console.WriteLine('  maxCount = {0}', maxCount);
             // Console.WriteLine('  expected = {0}', expected);
             // Console.WriteLine('  result = {0}', result);
-            // Console.WriteLine(new Array(80).fill('-').join(''));
+            // Console.WriteLine(new String('-', 80));
 
             return result;
         }
