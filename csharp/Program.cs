@@ -115,13 +115,13 @@ namespace ZhuMing.Detective2018
             }}}}}}}}}}
 
             Console.WriteLine("有" + allAnswers.Count + "种答案");
-            // for (var i = 0; i < allAnswers.length; i++) {
-            //     var answer = allAnswers[i];
-            //     for (var j = 0; j < answer.length; j++) {
-            //         var a = answer[j];
-            //         Console.WriteLine((j + 1) + ". " + a);
-            //     }
-            // }
+            for (var i = 0; i < allAnswers.Count; i++) {
+                var answer = allAnswers[i];
+                for (var j = 0; j < answer.Length; j++) {
+                    var a = answer[j];
+                    Console.WriteLine((j + 1) + ". " + a);
+                }
+            }
         }
 
         static bool checkAnswers(string[] answers)
@@ -133,8 +133,8 @@ namespace ZhuMing.Detective2018
                 && checkCondition6(answers)   // 第6题的限制条件
                 && checkCondition7(answers)   // 第7题的限制条件
                 && checkCondition8(answers)   // 第8题的限制条件
-                && checkCondition9(answers);  // 第9题的限制条件
-            //     && checkCondition10(answers); // 第10题的限制条件
+                && checkCondition9(answers)   // 第9题的限制条件
+                && checkCondition10(answers); // 第10题的限制条件
         }
 
         /**
@@ -483,20 +483,20 @@ namespace ZhuMing.Detective2018
             }
 
             var map = new Dictionary<string, int>() {
-                    { "A", 3},
-                    { "B", 2},
-                    { "C", 4},
-                    { "D", 1}
+                    { "A", 3 },
+                    { "B", 2 },
+                    { "C", 4 },
+                    { "D", 1 }
                 };
             var expected = map[answers[9]];
             var result = maxCount - minCount == expected;
 
-            // Console.WriteLine('checkCondition10(answers):');
-            // Console.WriteLine('  answers = {0}', String.Join(", ", answers));
-            // Console.WriteLine('  minCount = {0}', minCount);
-            // Console.WriteLine('  maxCount = {0}', maxCount);
-            // Console.WriteLine('  expected = {0}', expected);
-            // Console.WriteLine('  result = {0}', result);
+            // Console.WriteLine("checkCondition10(answers):");
+            // Console.WriteLine("  answers = {0}", String.Join(", ", answers));
+            // Console.WriteLine("  minCount = {0}", minCount);
+            // Console.WriteLine("  maxCount = {0}", maxCount);
+            // Console.WriteLine("  expected = {0}", expected);
+            // Console.WriteLine("  result = {0}", result);
             // Console.WriteLine(new String('-', 80));
 
             return result;
